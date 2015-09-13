@@ -1,8 +1,10 @@
-package com.todor.imageview;
+package com.todor.imageview.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
+
+import com.todor.imageview.R;
 
 public class MainActivityHorizontal extends AppCompatActivity {
 

@@ -7,16 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.todor.imageview.model.ImageItem;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class GridViewAdapter extends ArrayAdapter {
 
-    public GridViewAdapter(Context context, ArrayList<ImageItem> data) {
+    private View.OnClickListener listener;
+
+    public GridViewAdapter(Context context, List<ImageItem> data, View.OnClickListener listener) {
         super(context, 0, data);
+        this.listener = listener;
     }
 
     @Override
@@ -29,28 +32,6 @@ public class GridViewAdapter extends ArrayAdapter {
             imageHolder.imageThumb = (ImageView) convertView.findViewById(R.id.image);
             imageHolder.favorite = (ImageView) convertView.findViewById(R.id.favorite);
             convertView.setTag(imageHolder);
-
-            imageHolder.favorite.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (item.isSelected()) {
-                        item.setSelected(false);
-                        FavoriteFragment.imageItemArrayList.remove(item);
-                        notifyDataSetChanged();
-                    } else {
-                        item.setSelected(true);
-                        FavoriteFragment.imageItemArrayList.add(item);
-                        notifyDataSetChanged();
-                    }
-                }
-            });
-
-            imageHolder.imageThumb.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
 
         } else {
             imageHolder = (ImageHolder) convertView.getTag();
@@ -66,6 +47,8 @@ public class GridViewAdapter extends ArrayAdapter {
         } else {
             imageHolder.favorite.setImageResource(R.drawable.starnoselected);
         }
+
+        imageHolder.favorite.setOnClickListener(listener);
 
         return convertView;
     }

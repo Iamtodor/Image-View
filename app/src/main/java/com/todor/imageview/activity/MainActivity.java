@@ -1,18 +1,18 @@
-package com.todor.imageview;
+package com.todor.imageview.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.mikepenz.materialdrawer.Drawer;
+import com.todor.imageview.R;
+import com.todor.imageview.fragment.FolderFragment;
 import com.todor.imageview.utils.Utils;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private Drawer.Result myDrawer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,4 @@ public class MainActivity extends AppCompatActivity {
         else
             super.onBackPressed();
     }
-
-
 }
