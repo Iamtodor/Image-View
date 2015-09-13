@@ -11,7 +11,7 @@ import android.widget.GridView;
 import com.todor.imageview.model.GalleryImages;
 import com.todor.imageview.GridViewAdapter;
 import com.todor.imageview.R;
-
+import com.todor.imageview.model.ImageItem;
 
 public class FolderFragment extends Fragment implements View.OnClickListener {
 
@@ -32,5 +32,7 @@ public class FolderFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         // react to favorite click in folder fragment
+        GalleryImages.saveFavorite((ImageItem) myAdapter.getItem(imageGridView.getPositionForView(view)));
+        myAdapter.notifyDataSetChanged();
     }
 }

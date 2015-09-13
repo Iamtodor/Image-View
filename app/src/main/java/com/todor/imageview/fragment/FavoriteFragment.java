@@ -11,6 +11,7 @@ import android.widget.GridView;
 import com.todor.imageview.model.GalleryImages;
 import com.todor.imageview.GridViewAdapter;
 import com.todor.imageview.R;
+import com.todor.imageview.model.ImageItem;
 
 public class FavoriteFragment extends Fragment implements View.OnClickListener {
 
@@ -30,5 +31,7 @@ public class FavoriteFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         // react to favorite click in favorite fragment
+        GalleryImages.saveFavorite((ImageItem) myAdapter.getItem(imageGridView.getPositionForView(view)));
+        myAdapter.notifyDataSetChanged();
     }
 }

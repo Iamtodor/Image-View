@@ -34,8 +34,8 @@ public class ImageItem implements Serializable{
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(String date) {
+        this.date = new Date(date);
     }
 
     public int getHeight() {

@@ -32,7 +32,6 @@ public class GridViewAdapter extends ArrayAdapter {
             imageHolder.imageThumb = (ImageView) convertView.findViewById(R.id.image);
             imageHolder.favorite = (ImageView) convertView.findViewById(R.id.favorite);
             convertView.setTag(imageHolder);
-
         } else {
             imageHolder = (ImageHolder) convertView.getTag();
         }
