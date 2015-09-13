@@ -45,6 +45,13 @@ public class GridViewAdapter extends ArrayAdapter {
                 }
             });
 
+            imageHolder.imageThumb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
         } else {
             imageHolder = (ImageHolder) convertView.getTag();
         }
