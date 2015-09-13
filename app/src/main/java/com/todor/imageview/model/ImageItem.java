@@ -1,4 +1,4 @@
-package com.todor.imageview;
+package com.todor.imageview.model;
 
 import android.graphics.Bitmap;
 

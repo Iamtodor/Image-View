@@ -1,11 +1,7 @@
 package com.todor.imageview.utils;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,11 +12,10 @@ import android.widget.AdapterView;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.todor.imageview.FavoriteFragment;
-import com.todor.imageview.FolderFragment;
+import com.todor.imageview.fragment.FavoriteFragment;
+import com.todor.imageview.fragment.FolderFragment;
 import com.todor.imageview.R;
-import com.todor.imageview.SearchFragment;
-import com.todor.imageview.searchActivity;
+import com.todor.imageview.fragment.SearchFragment;
 
 public class Utils {
     public static void hideSoftKeyBoard(Activity activity) {

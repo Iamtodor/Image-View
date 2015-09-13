@@ -1,4 +1,4 @@
-package com.todor.imageview;
+package com.todor.imageview.model;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -6,9 +6,9 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GalleryImages {
-    public static ArrayList<ImageItem> selectedArray;
 
     @Nullable
     public static ArrayList<ImageItem> getGalleryImages(Activity activity) {
@@ -28,4 +28,16 @@ public class GalleryImages {
         return imageItems;
     }
 
+    public static void saveFavorite(ImageItem image) {
+        // save image to favorite db
+    }
+
+    public static void saveFavorites(List<ImageItem> image) {
+        // save image list to favorite db
+    }
+
+    public static List<ImageItem> getFavorites() {
+        // get all favorites from db
+        return null;
+    }
 }
