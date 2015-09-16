@@ -1,37 +1,68 @@
 package com.todor.imageview.fragment;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
+import com.todor.imageview.activity.AdapterListener;
 import com.todor.imageview.model.GalleryImages;
-import com.todor.imageview.GridViewAdapter;
 import com.todor.imageview.R;
 import com.todor.imageview.model.ImageItem;
 
-public class FavoriteFragment extends Fragment implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.List;
 
-    private GridView imageGridView;
-    private GridViewAdapter myAdapter;
+public class FavoriteFragment extends Fragment implements View.OnClickListener, AdapterListener {
+
+    private List<ImageItem> imageItems;
+    private ViewPager mPager;
+    private PagerAdapter mPagerAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
-        imageGridView = (GridView) view.findViewById(R.id.galleryView);
-        myAdapter = new GridViewAdapter(getActivity(), GalleryImages.getFavorites(), this);
-        imageGridView.setAdapter(myAdapter);
-
-        return view;
+        View v = inflater.inflate(R.layout.favorite_view_pager, container, false);
+        imageItems = GalleryImages.getFavorites();
+        mPager = (ViewPager) v.findViewById(R.id.pager);
+        mPagerAdapter = new PagerAdapter(getChildFragmentManager());
+        mPager.setAdapter(mPagerAdapter);
+        mPager.setCurrentItem(0);
+        return v;
     }
 
     @Override
     public void onClick(View view) {
         // react to favorite click in favorite fragment
-        GalleryImages.saveFavorite((ImageItem) myAdapter.getItem(imageGridView.getPositionForView(view)));
-        myAdapter.notifyDataSetChanged();
+//        GalleryImages.saveOrDeleteFavorite((ImageItem) myAdapter.getItem(imageGridView.getPositionForView(view)));
+//        myAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void removeImageItem(ImageItem imageItem) {
+        mPager.setAdapter(null);
+        imageItems = GalleryImages.getFavorites();
+        mPager.setAdapter(new PagerAdapter(getChildFragmentManager()));
+    }
+
+    private class PagerAdapter extends FragmentPagerAdapter {
+
+        public PagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return FavoriteSlideFragment.getInstance(imageItems.get(position));
+        }
+
+        @Override
+        public int getCount() {
+            return imageItems.size();
+        }
     }
 }

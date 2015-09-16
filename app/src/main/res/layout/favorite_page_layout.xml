@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e6e6e6"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_thumb"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp" />
+
+    <TextView
+        android:id="@+id/descTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_thumb"
+        android:layout_marginStart="10dp"
+        android:text="Description"
+        android:textColor="#524e4e"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Name"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/setName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/nameTextView"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/sizeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Size"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/setSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/sizeTextView"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/widthTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sizeTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Width"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/setWidth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sizeTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/widthTextView"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/heightTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/widthTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Height"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/setHeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/widthTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/heightTextView"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heightTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Date"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/setDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heightTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/dateTextView"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/urlTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="URL"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/setUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateTextView"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/urlTextView"
+        android:textColor="#524e4e" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/image_thumb"
+        android:layout_alignParentBottom="true"
+        android:text="delete" />
+
+</RelativeLayout>

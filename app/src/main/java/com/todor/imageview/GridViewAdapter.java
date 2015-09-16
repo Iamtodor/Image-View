@@ -2,6 +2,7 @@ package com.todor.imageview;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,35 +26,36 @@ public class GridViewAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ImageItem item = (ImageItem) getItem(position);
-        ImageHolder imageHolder;
-        if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.gallery_item, parent, false);
-            imageHolder = new ImageHolder();
-            imageHolder.imageThumb = (ImageView) convertView.findViewById(R.id.image);
-            imageHolder.favorite = (ImageView) convertView.findViewById(R.id.favorite);
-            convertView.setTag(imageHolder);
+        View view = convertView;
+        ImageHolder holder;
+        if (view == null) {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.gallery_item, parent, false);
+            holder = new ImageHolder(view);
+            view.setTag(holder);
         } else {
-            imageHolder = (ImageHolder) convertView.getTag();
+            holder = (ImageHolder) view.getTag();
         }
+
+        holder.favorite.setImageResource(item.isFavorite() ? R.drawable.starselected : R.drawable.starnoselected);
+        holder.favorite.setOnClickListener(listener);
 
         Picasso.with(getContext())
-                .load("file://" + Uri.parse(item.getImage()))
+                .load("file://" + Uri.parse(item.getPath()))
                 .fit()
-                .into(imageHolder.imageThumb);
+                .centerCrop()
+                .into(holder.imageThumb);
 
-        if(item.isSelected()) {
-            imageHolder.favorite.setImageResource(R.drawable.starselected);
-        } else {
-            imageHolder.favorite.setImageResource(R.drawable.starnoselected);
-        }
-
-        imageHolder.favorite.setOnClickListener(listener);
-
-        return convertView;
+        return view;
     }
 
     static class ImageHolder {
         ImageView imageThumb;
         ImageView favorite;
+
+        public ImageHolder(View view) {
+            imageThumb = (ImageView) view.findViewById(R.id.image_thumb);
+            favorite = (ImageView) view.findViewById(R.id.favorite);
+        }
     }
+
 }

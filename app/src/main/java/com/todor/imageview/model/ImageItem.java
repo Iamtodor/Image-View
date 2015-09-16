@@ -1,41 +1,38 @@
 package com.todor.imageview.model;
 
-import android.graphics.Bitmap;
-
 import java.io.Serializable;
-import java.util.Date;
 
-public class ImageItem implements Serializable{
+public class ImageItem implements Serializable {
 
-    private String image;
+    private String path;
     private String name;
     private float weight;
     private int width, height;
-    private Date date;
-    private boolean selected;
+    private String date;
+    private boolean isFavorite;
 
-    public boolean isSelected() {
-        return selected;
+    public boolean isFavorite() {
+        return isFavorite;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+    public void setFavorite(boolean favorite) {
+        this.isFavorite = favorite;
     }
 
-    public String getImage() {
-        return image;
+    public String getPath() {
+        return path;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setPath(String path) {
+        this.path = path;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
-        this.date = new Date(date);
+        this.date = date;
     }
 
     public int getHeight() {

@@ -9,6 +9,8 @@ import com.todor.imageview.R;
 import com.todor.imageview.fragment.FolderFragment;
 import com.todor.imageview.utils.Utils;
 
+import java.util.HashMap;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
             .replace(R.id.frame_container, new FolderFragment())
             .commit();
         }
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         myDrawer = Utils.createCommonDrawer(MainActivity.this, toolbar);
