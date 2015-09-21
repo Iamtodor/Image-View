@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e6e6e6"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/image_thumb"
         android:layout_width="350dp"
         android:layout_height="350dp"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp" />
 
@@ -31,19 +31,19 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:text="Name:"
-        android:textStyle="bold"
-        android:textColor="#524e4e" />
+        android:textColor="#524e4e"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/descTextView"
+        android:layout_marginRight="100dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/nameTextView"
         android:gravity="right"
-        android:layout_marginRight="100dp"
         android:textColor="#524e4e" />
 
     <TextView
@@ -54,19 +54,19 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:text="Size:"
-        android:textStyle="bold"
-        android:textColor="#524e4e" />
+        android:textColor="#524e4e"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nameTextView"
+        android:layout_marginRight="100dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/sizeTextView"
         android:gravity="right"
-        android:layout_marginRight="100dp"
         android:textColor="#524e4e" />
 
     <TextView
@@ -77,19 +77,19 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:text="Width:"
-        android:textStyle="bold"
-        android:textColor="#524e4e" />
+        android:textColor="#524e4e"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setWidth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/sizeTextView"
+        android:layout_marginRight="100dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/widthTextView"
         android:gravity="right"
-        android:layout_marginRight="100dp"
         android:textColor="#524e4e" />
 
     <TextView
@@ -100,19 +100,19 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:text="Height:"
-        android:textStyle="bold"
-        android:textColor="#524e4e" />
+        android:textColor="#524e4e"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setHeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/widthTextView"
+        android:layout_marginRight="100dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/heightTextView"
         android:gravity="right"
-        android:layout_marginRight="100dp"
         android:textColor="#524e4e" />
 
     <TextView
@@ -123,19 +123,19 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:text="Date:"
-        android:textStyle="bold"
-        android:textColor="#524e4e" />
+        android:textColor="#524e4e"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/heightTextView"
+        android:layout_marginRight="100dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/dateTextView"
         android:gravity="right"
-        android:layout_marginRight="100dp"
         android:textColor="#524e4e" />
 
     <TextView
@@ -146,19 +146,19 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:text="URL:"
-        android:textStyle="bold"
-        android:textColor="#524e4e" />
+        android:textColor="#524e4e"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dateTextView"
+        android:layout_marginRight="100dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/urlTextView"
         android:gravity="right"
-        android:layout_marginRight="100dp"
         android:textColor="#524e4e" />
 
     <Button
@@ -169,4 +169,4 @@
         android:layout_alignParentBottom="true"
         android:text="delete" />
 
-</RelativeLayout>
+</LinearLayout>

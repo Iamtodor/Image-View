@@ -1,11 +1,14 @@
 package com.todor.imageview;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
-public class MyGridLayoutManager extends RecyclerView {
+import java.io.Serializable;
+
+public class MyGridLayoutManager extends RecyclerView implements Serializable {
     private GridLayoutManager manager;
     private int columnWidth = -1;
 

@@ -16,6 +16,7 @@ import com.todor.imageview.fragment.FavoriteFragment;
 import com.todor.imageview.fragment.FolderFragment;
 import com.todor.imageview.R;
 import com.todor.imageview.fragment.SearchFragment;
+//import com.todor.imageview.fragment.SearchFragment;
 
 public class Utils {
     public static void hideSoftKeyBoard(Activity activity) {

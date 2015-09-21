@@ -51,19 +51,4 @@ public class ImageItem implements Serializable {
         this.name = name;
     }
 
-    public float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(float weight) {
-        this.weight = weight;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
 }

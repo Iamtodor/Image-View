@@ -59,7 +59,6 @@ public class DataBase extends SQLiteOpenHelper {
 
     public void deleteFavorite(ImageItem item) {
         db = getWritableDatabase();
-//        db.delete(IMAGES_TABLE, (PATH + "='" + item.getPath() + "'"), null);
         db.delete(IMAGES_TABLE, PATH + "=?", new String[]{item.getPath()});
         close();
     }

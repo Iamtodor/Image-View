@@ -2,18 +2,13 @@ package com.todor.imageview.fragment;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +48,7 @@ public class FavoriteSlideFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.favorite_page_layout, null);
+        View v = inflater.inflate(R.layout.favorite_layout, null);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(imageItem.getName());
 
@@ -69,7 +64,6 @@ public class FavoriteSlideFragment extends Fragment {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GalleryImages.deleteFavorite(imageItem);
                 adapterListener.removeImageItem(imageItem);
             }
         });

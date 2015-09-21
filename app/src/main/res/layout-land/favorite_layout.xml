@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/image_thumb"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/descTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textColor="#524e4e"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/image_thumb"
+        android:layout_alignEnd="@+id/setName"
+        android:layout_marginTop="42dp" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:textColor="#524e4e"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/setName"
+        android:layout_toEndOf="@+id/image_thumb" />
+
+    <TextView
+        android:id="@+id/setName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descTextView"
+        android:layout_marginRight="100dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/nameTextView"
+        android:gravity="right"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/sizeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Size:"
+        android:textColor="#524e4e"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/nameTextView"
+        android:layout_alignStart="@+id/nameTextView" />
+
+    <TextView
+        android:id="@+id/setSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameTextView"
+        android:layout_marginRight="100dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/sizeTextView"
+        android:gravity="right"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/widthTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Width:"
+        android:layout_marginTop="10dp"
+        android:textColor="#524e4e"
+        android:textStyle="bold"
+        android:layout_below="@+id/sizeTextView"
+        android:layout_alignStart="@+id/sizeTextView" />
+
+    <TextView
+        android:id="@+id/setWidth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sizeTextView"
+        android:layout_marginRight="100dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/widthTextView"
+        android:gravity="right"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/heightTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Height:"
+        android:layout_marginTop="10dp"
+        android:textColor="#524e4e"
+        android:textStyle="bold"
+        android:layout_below="@+id/widthTextView"
+        android:layout_alignStart="@+id/widthTextView" />
+
+    <TextView
+        android:id="@+id/setHeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/widthTextView"
+        android:layout_marginRight="100dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/heightTextView"
+        android:gravity="right"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date:"
+        android:textColor="#524e4e"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/heightTextView"
+        android:layout_alignStart="@+id/heightTextView" />
+
+    <TextView
+        android:id="@+id/setDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heightTextView"
+        android:layout_marginRight="100dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/dateTextView"
+        android:gravity="right"
+        android:textColor="#524e4e" />
+
+    <TextView
+        android:id="@+id/urlTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="URL:"
+        android:textColor="#524e4e"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/dateTextView"
+        android:layout_alignStart="@+id/dateTextView" />
+
+    <TextView
+        android:id="@+id/setUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateTextView"
+        android:layout_marginRight="100dp"
+        android:layout_marginStart="15dp"
+        android:layout_toRightOf="@id/urlTextView"
+        android:gravity="right"
+        android:layout_marginTop="10dp"
+        android:textColor="#524e4e" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/image_thumb"
+        android:layout_alignParentBottom="true"
+        android:text="delete" />
+
+</RelativeLayout>

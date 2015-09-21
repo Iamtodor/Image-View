@@ -3,6 +3,7 @@ package com.todor.imageview.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.todor.imageview.R;
@@ -25,13 +26,12 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState == null) {
             getSupportFragmentManager()
             .beginTransaction()
-            .replace(R.id.frame_container, new FolderFragment())
+            .replace(R.id.frame_container, new FolderFragment(), "folder")
             .commit();
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         myDrawer = Utils.createCommonDrawer(MainActivity.this, toolbar);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new FolderFragment()).commit();
     }
 
     @Override

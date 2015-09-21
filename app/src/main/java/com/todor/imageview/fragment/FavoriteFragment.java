@@ -9,15 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.todor.imageview.R;
 import com.todor.imageview.activity.AdapterListener;
 import com.todor.imageview.model.GalleryImages;
-import com.todor.imageview.R;
 import com.todor.imageview.model.ImageItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteFragment extends Fragment implements View.OnClickListener, AdapterListener {
+public class FavoriteFragment extends Fragment implements AdapterListener {
 
     private List<ImageItem> imageItems;
     private ViewPager mPager;
@@ -36,15 +35,8 @@ public class FavoriteFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
-    public void onClick(View view) {
-        // react to favorite click in favorite fragment
-//        GalleryImages.saveOrDeleteFavorite((ImageItem) myAdapter.getItem(imageGridView.getPositionForView(view)));
-//        myAdapter.notifyDataSetChanged();
-    }
-
-    @Override
     public void removeImageItem(ImageItem imageItem) {
-        mPager.setAdapter(null);
+        GalleryImages.saveOrDeleteFavorite(imageItem);
         imageItems = GalleryImages.getFavorites();
         mPager.setAdapter(new PagerAdapter(getChildFragmentManager()));
     }
@@ -64,5 +56,7 @@ public class FavoriteFragment extends Fragment implements View.OnClickListener, 
         public int getCount() {
             return imageItems.size();
         }
+
     }
+
 }

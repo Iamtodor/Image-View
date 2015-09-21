@@ -9,23 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.todor.imageview.model.GalleryImages;
 import com.todor.imageview.model.ImageItem;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Serializable {
 
     private List<ImageItem> imageItems;
     private Context context;
-    private View.OnClickListener listener;
-    private GetItemFromRecyclerViewListener getItemListener;
 
-    public RecyclerViewAdapter(List<ImageItem> imageItems, Context context, View.OnClickListener listener,
-                               GetItemFromRecyclerViewListener getItemListener) {
+    public RecyclerViewAdapter(List<ImageItem> imageItems, Context context) {
         this.imageItems = imageItems;
         this.context = context;
-        this.listener = listener;
-        this.getItemListener = getItemListener;
     }
 
     @Override
@@ -37,7 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder viewHolder, int i) {
-        ImageItem imageItem = imageItems.get(i);
+        final ImageItem imageItem = imageItems.get(i);
         viewHolder.favorite.setImageResource(imageItem.isFavorite() ? R.drawable.starselected : R.drawable.starnoselected);
         Picasso.with(context)
                 .load("file://" + Uri.parse(imageItem.getPath()))
@@ -45,7 +42,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .centerCrop()
                 .into(viewHolder.imageThumb);
 
-        viewHolder.favorite.setOnClickListener(listener);
+        viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GalleryImages.saveOrDeleteFavorite(imageItem);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

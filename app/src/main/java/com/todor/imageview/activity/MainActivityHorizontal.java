@@ -16,7 +16,6 @@ public class MainActivityHorizontal extends AppCompatActivity {
         setContentView(R.layout.activity_main_horizontal);
 
         listViewMenu = (ListView) findViewById(R.id.listViewMenu);
-
     }
 
 
