@@ -2,7 +2,6 @@ package com.todor.imageview.fragment;
 
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import com.squareup.picasso.Picasso;
 import com.todor.imageview.R;
 import com.todor.imageview.activity.AdapterListener;
 import com.todor.imageview.activity.ImageActivity;
-import com.todor.imageview.model.GalleryImages;
 import com.todor.imageview.model.ImageItem;
 
 import java.io.File;

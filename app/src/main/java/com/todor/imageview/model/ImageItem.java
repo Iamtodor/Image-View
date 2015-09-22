@@ -10,6 +10,15 @@ public class ImageItem implements Serializable {
     private int width, height;
     private String date;
     private boolean isFavorite;
+    private int resultIndex;
+
+    public int getResultIndex() {
+        return resultIndex;
+    }
+
+    public void setResultIndex(int resultIndex) {
+        this.resultIndex = resultIndex;
+    }
 
     public boolean isFavorite() {
         return isFavorite;
