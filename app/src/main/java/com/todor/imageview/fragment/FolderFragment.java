@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 
 import com.todor.imageview.MyGridLayoutManager;
 import com.todor.imageview.R;
-import com.todor.imageview.RecyclerViewAdapter;
+import com.todor.imageview.RecyclerViewAdapterForFolder;
 import com.todor.imageview.model.GalleryImages;
 
 public class FolderFragment extends Fragment {
 
-    private RecyclerViewAdapter mAdapter;
+    private RecyclerViewAdapterForFolder mAdapter;
     private MyGridLayoutManager recyclerView;
 
     @Override
@@ -27,7 +27,7 @@ public class FolderFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.recycle_view, container, false);
         recyclerView = (MyGridLayoutManager) view.findViewById(R.id.recyclerView);
-        mAdapter = new RecyclerViewAdapter(GalleryImages.getGalleryImages(getActivity()),
+        mAdapter = new RecyclerViewAdapterForFolder(GalleryImages.getGalleryImages(getActivity()),
                 getActivity());
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
 
@@ -38,14 +38,4 @@ public class FolderFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("adapter", recyclerView);
-    }
 }

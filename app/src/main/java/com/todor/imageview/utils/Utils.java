@@ -58,7 +58,7 @@ public class Utils {
                             if(iDrawerItem.getIdentifier() == 1) {
                                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new FolderFragment()).commit();
                             } else if(iDrawerItem.getIdentifier() == 2) {
-                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new SearchFragment()).commit();
+                                activity.getSupportFragmentManager().beginTransaction().addToBackStack("search").replace(R.id.frame_container, new SearchFragment()).commit();
                             } else if(iDrawerItem.getIdentifier() == 3) {
                                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new FavoriteFragment()).commit();
                             }

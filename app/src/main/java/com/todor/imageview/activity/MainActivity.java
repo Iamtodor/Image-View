@@ -1,6 +1,8 @@
 package com.todor.imageview.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,6 +18,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     private Drawer.Result myDrawer;
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
             .beginTransaction()
             .replace(R.id.frame_container, new FolderFragment(), "folder")
             .commit();
+        } else {
+            fragment = getSupportFragmentManager().getFragment(
+                    savedInstanceState, "search");
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -41,4 +47,16 @@ public class MainActivity extends AppCompatActivity {
         else
             super.onBackPressed();
     }
+//
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//
+//        FragmentManager.BackStackEntry backEntry = (FragmentManager.BackStackEntry) getFragmentManager().getBackStackEntryAt(MainActivity.this.getFragmentManager().getBackStackEntryCount());
+//        String str = backEntry.getName();
+//        fragment = getSupportFragmentManager().findFragmentByTag(str);
+//
+//        getSupportFragmentManager().putFragment(outState, "search", fragment);
+//
+//    }
 }

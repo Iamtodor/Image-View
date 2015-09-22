@@ -1,7 +1,6 @@
 package com.todor.imageview;
 
 import android.net.Uri;
-import android.support.v4.util.SimpleArrayMap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,30 +13,21 @@ import com.todor.imageview.model.GalleryImages;
 import com.todor.imageview.model.ImageItem;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class RecyclerViewAdapterForSearch extends RecyclerView.Adapter<RecyclerViewAdapterForSearch.ViewHolder> implements Serializable {
 
     private SearchFragment fragment;
-    private int contiguousResults; //Contiguous results count from front of results array
-    private SimpleArrayMap<Integer, ImageItem> resultsImage;
+    private ArrayList<ImageItem> imageItems;
 
     public RecyclerViewAdapterForSearch(SearchFragment fragment) {
         this.fragment = fragment;
-        this.contiguousResults = 0;
-        this.resultsImage = new SimpleArrayMap<>();
+        this.imageItems = new ArrayList<>();
     }
 
     public void addResult(ImageItem imageItem) {
-        this.resultsImage.put(imageItem.getResultIndex(), imageItem);
-        int i = contiguousResults;
-        while (resultsImage.get(i) != null) {
-            i++;
-        }
-
-        if(i != contiguousResults) {
-            contiguousResults = i;
-            notifyDataSetChanged();
-        }
+        imageItems.add(imageItem);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -49,7 +39,7 @@ public class RecyclerViewAdapterForSearch extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public void onBindViewHolder(RecyclerViewAdapterForSearch.ViewHolder viewHolder, int i) {
-        final ImageItem imageItem = resultsImage.get(i);
+        final ImageItem imageItem = imageItems.get(i);
         viewHolder.favorite.setImageResource(imageItem.isFavorite() ? R.drawable.starselected : R.drawable.starnoselected);
         Picasso.with(fragment.getActivity())
                 .load(Uri.parse(imageItem.getPath()))
@@ -68,7 +58,7 @@ public class RecyclerViewAdapterForSearch extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public int getItemCount() {
-        return resultsImage.size();
+        return imageItems.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

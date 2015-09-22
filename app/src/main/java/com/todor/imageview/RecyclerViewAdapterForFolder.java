@@ -15,25 +15,25 @@ import com.todor.imageview.model.ImageItem;
 import java.io.Serializable;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Serializable {
+public class RecyclerViewAdapterForFolder extends RecyclerView.Adapter<RecyclerViewAdapterForFolder.ViewHolder> implements Serializable {
 
     private List<ImageItem> imageItems;
     private Context context;
 
-    public RecyclerViewAdapter(List<ImageItem> imageItems, Context context) {
+    public RecyclerViewAdapterForFolder(List<ImageItem> imageItems, Context context) {
         this.imageItems = imageItems;
         this.context = context;
     }
 
     @Override
-    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public RecyclerViewAdapterForFolder.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         return new ViewHolder(LayoutInflater
                 .from(viewGroup.getContext())
                 .inflate(R.layout.gallery_item, viewGroup, false));
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(RecyclerViewAdapterForFolder.ViewHolder viewHolder, int i) {
         final ImageItem imageItem = imageItems.get(i);
         viewHolder.favorite.setImageResource(imageItem.isFavorite() ? R.drawable.starselected : R.drawable.starnoselected);
         Picasso.with(context)

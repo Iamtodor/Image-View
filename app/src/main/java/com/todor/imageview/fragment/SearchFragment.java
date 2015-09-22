@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.todor.imageview.MyGridLayoutManager;
 import com.todor.imageview.R;
 import com.todor.imageview.RecyclerViewAdapterForSearch;
 import com.todor.imageview.model.ImageItem;
@@ -27,15 +28,19 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchFragment extends Fragment {
     public final int MAX_RESULT_COUNT = 50;
     private final int PAGE_SIZE = 8;
     private final String SEARCH_ENDPOINT = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=" + PAGE_SIZE;
-    View searchToolbar;
-    Toolbar toolbar;
+    private View searchToolbar;
+    private Toolbar toolbar;
     private RecyclerViewAdapterForSearch recyclerViewAdapter;
-    private RecyclerView recyclerView;
+    private MyGridLayoutManager recyclerView;
+    private String searchRequest;
+    private EditText searchInput;
 
     @Override
     public void onPause() {
@@ -46,15 +51,32 @@ public class SearchFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("searchRequest", searchRequest);
+        outState.putSerializable("adapter", recyclerViewAdapter);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState != null) {
+            searchRequest = savedInstanceState.getString("searchRequest");
+            searchInput.setText(searchRequest);
+            recyclerViewAdapter = (RecyclerViewAdapterForSearch) savedInstanceState.getSerializable("adapter");
+            recyclerView.setAdapter(recyclerViewAdapter);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View viewForRecycler = inflater.inflate(R.layout.recycle_view, container, false);
-        recyclerView = (RecyclerView) viewForRecycler.findViewById(R.id.recyclerView);
-
+        recyclerView = (MyGridLayoutManager) viewForRecycler.findViewById(R.id.recyclerView);
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         searchToolbar = inflater.inflate(R.layout.toolbar_search, toolbar, false);
         ImageButton searchButton = (ImageButton) searchToolbar.findViewById(R.id.search_button);
-        final EditText searchInput = (EditText) searchToolbar.findViewById(R.id.search_input);
+        searchInput = (EditText) searchToolbar.findViewById(R.id.search_input);
         toolbar.addView(searchToolbar);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +85,8 @@ public class SearchFragment extends Fragment {
                 recyclerViewAdapter = new RecyclerViewAdapterForSearch(SearchFragment.this);
                 recyclerView.setAdapter(recyclerViewAdapter);
                 recyclerView.invalidate();
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                searchRequest = searchInput.getText().toString();
                 new SearchTask(SearchFragment.this).execute(searchInput.getText().toString());
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(searchInput.getWindowToken(), 0);
@@ -78,7 +102,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
 
-//                if (!isAttached(adapter)) return;
+                if (!isAttached(adapter)) return;
 
                 if (json != null) {
                     try {
@@ -89,17 +113,17 @@ public class SearchFragment extends Fragment {
                             final ImageItem imageItem = new ImageItem();
 
                             imageItem.setPath(results.getJSONObject(i).getString("tbUrl"));
-                            imageItem.setResultIndex(start + i);
+                            imageItem.setResultIndex(start+i);
                             imageItem.setFavorite(false);
 
-                            if (imageItem.getResultIndex() >= MAX_RESULT_COUNT) {
+                            if(imageItem.getResultIndex() >= MAX_RESULT_COUNT) {
                                 continue;
                             }
 
                             aq.ajax(imageItem.getPath(), Bitmap.class, new AjaxCallback<Bitmap>() {
                                 @Override
                                 public void callback(String url, Bitmap bitmap, AjaxStatus status) {
-//                                    if (!isAttached(adapter)) return;
+                                    if (!isAttached(adapter)) return;
                                     recyclerViewAdapter.addResult(imageItem);
                                     recyclerView.invalidate();
                                 }
@@ -115,9 +139,9 @@ public class SearchFragment extends Fragment {
         });
     }
 
-//    protected boolean isAttached(ImageAdapterForSearch adapter) {
-//        return resultsGrid.getAdapter() == adapter;
-//    }
+    protected boolean isAttached(RecyclerViewAdapterForSearch adapter) {
+        return recyclerView.getAdapter() == adapter;
+    }
 
     protected void runSearch(String query) {
         for (int i = 0; i < MAX_RESULT_COUNT; i += PAGE_SIZE) {
