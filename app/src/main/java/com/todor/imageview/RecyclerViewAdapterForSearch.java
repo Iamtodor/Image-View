@@ -1,5 +1,10 @@
 package com.todor.imageview;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,21 +13,46 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.todor.imageview.fragment.SearchFragment;
+import com.todor.imageview.activity.ImageActivity;
 import com.todor.imageview.model.GalleryImages;
 import com.todor.imageview.model.ImageItem;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class RecyclerViewAdapterForSearch extends RecyclerView.Adapter<RecyclerViewAdapterForSearch.ViewHolder> implements Serializable {
 
-    private SearchFragment fragment;
+    private static final long serialVersionUID = -6298516694275121291L;
+    private Context context;
     private ArrayList<ImageItem> imageItems;
+    private Bitmap bitmap;
 
-    public RecyclerViewAdapterForSearch(SearchFragment fragment) {
-        this.fragment = fragment;
+    public RecyclerViewAdapterForSearch(Context context) {
+        this.context = context;
         this.imageItems = new ArrayList<>();
+    }
+
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        oos.defaultWriteObject();
+        if (bitmap != null) {
+            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+            boolean success = bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+            if (success) {
+                oos.writeObject(byteStream.toByteArray());
+            }
+        }
+    }
+
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        byte[] image = (byte[]) ois.readObject();
+        if (image != null && image.length > 0) {
+            bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+        }
     }
 
     public void addResult(ImageItem imageItem) {
@@ -38,10 +68,10 @@ public class RecyclerViewAdapterForSearch extends RecyclerView.Adapter<RecyclerV
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewAdapterForSearch.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(final RecyclerViewAdapterForSearch.ViewHolder viewHolder, int i) {
         final ImageItem imageItem = imageItems.get(i);
         viewHolder.favorite.setImageResource(imageItem.isFavorite() ? R.drawable.starselected : R.drawable.starnoselected);
-        Picasso.with(fragment.getActivity())
+        Picasso.with(context)
                 .load(Uri.parse(imageItem.getPath()))
                 .fit()
                 .centerCrop()
@@ -50,8 +80,21 @@ public class RecyclerViewAdapterForSearch extends RecyclerView.Adapter<RecyclerV
         viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GalleryImages.saveOrDeleteFavorite(imageItem);
+                final Bitmap bitmap = ((BitmapDrawable) viewHolder.imageThumb.getDrawable()).getBitmap();
+                GalleryImages.saveOrDeleteFavoriteFromSearch(imageItem, bitmap);
                 notifyDataSetChanged();
+            }
+        });
+
+        viewHolder.imageThumb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(context, ImageActivity.class);
+                final Bitmap bitmap = ((BitmapDrawable) viewHolder.imageThumb.getDrawable()).getBitmap();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+                mIntent.putExtra("stream", stream.toByteArray());
+                context.startActivity(mIntent);
             }
         });
     }

@@ -5,9 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.todor.imageview.model.ImageItem;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class DataBase extends SQLiteOpenHelper {
@@ -21,6 +24,7 @@ public class DataBase extends SQLiteOpenHelper {
     private static final String WEIGHT = "weight";
     private static final String WIDTH = "width";
     private static final String HEIGHT = "height";
+    private static final String BYTE = "byte";
 
     private static final String DATE = "date";
 
@@ -34,7 +38,7 @@ public class DataBase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USER_TABLE = "CREATE TABLE " + IMAGES_TABLE + "(" + PATH +
                 " TEXT PRIMARY KEY," + NAME + " TEXT," + WEIGHT + " REAL," + WIDTH + " INTEGER," +
-                HEIGHT + " INTEGER," + DATE + " TEXT" + ")";
+                HEIGHT + " INTEGER," + DATE + " TEXT, " + BYTE + " BLOB" + ")";
         db.execSQL(CREATE_USER_TABLE);
     }
 
@@ -46,19 +50,37 @@ public class DataBase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void saveFavorite(ImageItem item) {
+    public void saveFavoriteFromSearch(ImageItem imageItem, Bitmap bitmap) {
         db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(PATH, item.getPath());
-        cv.put(NAME, item.getName());
-        cv.put(DATE, String.valueOf(item.getDate()));
+        cv.put(PATH, imageItem.getPath());
+        cv.put(NAME, imageItem.getName());
+        cv.put(DATE, imageItem.getDate());
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        cv.put(BYTE, stream.toByteArray());
+        db.insert(IMAGES_TABLE, null, cv);
+    }
+
+    public void deleteFavoriteFromSearch(ImageItem imageItem) {
+        db = getWritableDatabase();
+        db.delete(IMAGES_TABLE, PATH + "=?", new String[]{imageItem.getPath()});
+        close();
+    }
+
+    public void saveFavorite(ImageItem imageItem) {
+        db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(PATH, imageItem.getPath());
+        cv.put(NAME, imageItem.getName());
+        cv.put(DATE, String.valueOf(imageItem.getDate()));
         db.insert(IMAGES_TABLE, null, cv);
         close();
     }
 
-    public void deleteFavorite(ImageItem item) {
+    public void deleteFavorite(ImageItem imageItem) {
         db = getWritableDatabase();
-        db.delete(IMAGES_TABLE, PATH + "=?", new String[]{item.getPath()});
+        db.delete(IMAGES_TABLE, PATH + "=?", new String[]{imageItem.getPath()});
         close();
     }
 
@@ -74,6 +96,11 @@ public class DataBase extends SQLiteOpenHelper {
                 imageItem.setName(cursor.getString(cursor.getColumnIndex(NAME)));
                 imageItem.setDate(cursor.getString(cursor.getColumnIndex(DATE)));
                 imageItem.setFavorite(true);
+                if(cursor.getBlob(cursor.getColumnIndex(BYTE)) != null) {
+                    imageItem.setBitmap(BitmapFactory.decodeByteArray(
+                            cursor.getBlob(cursor.getColumnIndex(BYTE)), 0,
+                            cursor.getBlob(cursor.getColumnIndex(BYTE)).length));
+                }
                 imageItems.add(imageItem);
             } while (cursor.moveToNext());
         }

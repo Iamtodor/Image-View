@@ -1,6 +1,7 @@
 package com.todor.imageview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.todor.imageview.activity.ImageActivity;
 import com.todor.imageview.model.GalleryImages;
 import com.todor.imageview.model.ImageItem;
 
@@ -47,6 +49,14 @@ public class RecyclerViewAdapterForFolder extends RecyclerView.Adapter<RecyclerV
             public void onClick(View v) {
                 GalleryImages.saveOrDeleteFavorite(imageItem);
                 notifyDataSetChanged();
+            }
+        });
+        viewHolder.imageThumb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(context, ImageActivity.class);
+                mIntent.putExtra("path", imageItem.getPath());
+                context.startActivity(mIntent);
             }
         });
     }

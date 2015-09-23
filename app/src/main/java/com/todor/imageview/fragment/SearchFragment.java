@@ -2,6 +2,8 @@ package com.todor.imageview.fragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -28,8 +32,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
 
 public class SearchFragment extends Fragment {
     public final int MAX_RESULT_COUNT = 50;
@@ -60,7 +63,7 @@ public class SearchFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             searchRequest = savedInstanceState.getString("searchRequest");
             searchInput.setText(searchRequest);
             recyclerViewAdapter = (RecyclerViewAdapterForSearch) savedInstanceState.getSerializable("adapter");
@@ -79,10 +82,15 @@ public class SearchFragment extends Fragment {
         searchInput = (EditText) searchToolbar.findViewById(R.id.search_input);
         toolbar.addView(searchToolbar);
 
+        if (!isNetworkAvailable()) {
+            Toast.makeText(getActivity(), "You have no internet", Toast.LENGTH_SHORT).show();
+            searchToolbar.setVisibility(View.INVISIBLE);
+        }
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerViewAdapter = new RecyclerViewAdapterForSearch(SearchFragment.this);
+                recyclerViewAdapter = new RecyclerViewAdapterForSearch(getActivity());
                 recyclerView.setAdapter(recyclerViewAdapter);
                 recyclerView.invalidate();
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -109,14 +117,16 @@ public class SearchFragment extends Fragment {
                         JSONObject responseData = json.getJSONObject("responseData");
                         final JSONArray results = responseData.getJSONArray("results");
                         for (int i = 0; i < results.length(); i++) {
-
                             final ImageItem imageItem = new ImageItem();
-
                             imageItem.setPath(results.getJSONObject(i).getString("tbUrl"));
-                            imageItem.setResultIndex(start+i);
+                            imageItem.setName(URLUtil.guessFileName(url, null, null));
+                            imageItem.setDate(String.valueOf(new SimpleDateFormat("dd/MM/yyyy").
+                                    format(System
+                                            .currentTimeMillis())));
+                            imageItem.setResultIndex(start + i);
                             imageItem.setFavorite(false);
 
-                            if(imageItem.getResultIndex() >= MAX_RESULT_COUNT) {
+                            if (imageItem.getResultIndex() >= MAX_RESULT_COUNT) {
                                 continue;
                             }
 
@@ -151,6 +161,13 @@ public class SearchFragment extends Fragment {
                 // TODO: handle error
             }
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
 

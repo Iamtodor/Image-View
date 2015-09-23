@@ -8,33 +8,33 @@
         android:id="@+id/image_thumb"
         android:layout_width="350dp"
         android:layout_height="350dp"
+        android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:layout_alignParentLeft="true" />
+        android:layout_margin="10dp" />
 
     <TextView
         android:id="@+id/descTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/setName"
+        android:layout_alignTop="@+id/image_thumb"
+        android:layout_marginTop="42dp"
         android:text="Description"
         android:textColor="#524e4e"
         android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_alignTop="@+id/image_thumb"
-        android:layout_alignEnd="@+id/setName"
-        android:layout_marginTop="42dp" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/setName"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/image_thumb"
         android:text="Name:"
         android:textColor="#524e4e"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:layout_alignTop="@+id/setName"
-        android:layout_toEndOf="@+id/image_thumb" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setName"
@@ -52,12 +52,12 @@
         android:id="@+id/sizeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/nameTextView"
+        android:layout_below="@+id/nameTextView"
+        android:layout_marginTop="10dp"
         android:text="Size:"
         android:textColor="#524e4e"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:layout_below="@+id/nameTextView"
-        android:layout_alignStart="@+id/nameTextView" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setSize"
@@ -75,12 +75,12 @@
         android:id="@+id/widthTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Width:"
-        android:layout_marginTop="10dp"
-        android:textColor="#524e4e"
-        android:textStyle="bold"
+        android:layout_alignStart="@+id/sizeTextView"
         android:layout_below="@+id/sizeTextView"
-        android:layout_alignStart="@+id/sizeTextView" />
+        android:layout_marginTop="10dp"
+        android:text="Width:"
+        android:textColor="#524e4e"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setWidth"
@@ -98,12 +98,12 @@
         android:id="@+id/heightTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Height:"
-        android:layout_marginTop="10dp"
-        android:textColor="#524e4e"
-        android:textStyle="bold"
+        android:layout_alignStart="@+id/widthTextView"
         android:layout_below="@+id/widthTextView"
-        android:layout_alignStart="@+id/widthTextView" />
+        android:layout_marginTop="10dp"
+        android:text="Height:"
+        android:textColor="#524e4e"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setHeight"
@@ -121,12 +121,12 @@
         android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/heightTextView"
+        android:layout_below="@+id/heightTextView"
+        android:layout_marginTop="10dp"
         android:text="Date:"
         android:textColor="#524e4e"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/heightTextView"
-        android:layout_alignStart="@+id/heightTextView" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setDate"
@@ -144,12 +144,12 @@
         android:id="@+id/urlTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/dateTextView"
+        android:layout_below="@+id/dateTextView"
+        android:layout_marginTop="10dp"
         android:text="URL:"
         android:textColor="#524e4e"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/dateTextView"
-        android:layout_alignStart="@+id/dateTextView" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/setUrl"
@@ -158,9 +158,9 @@
         android:layout_below="@+id/dateTextView"
         android:layout_marginRight="100dp"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/urlTextView"
         android:gravity="right"
-        android:layout_marginTop="10dp"
         android:textColor="#524e4e" />
 
     <Button

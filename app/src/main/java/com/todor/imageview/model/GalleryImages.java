@@ -2,6 +2,7 @@ package com.todor.imageview.model;
 
 import android.app.Activity;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -47,17 +48,26 @@ public class GalleryImages {
                 imageItems.add(imageItem);
             } while (cursor.moveToNext());
         }
-
         return imageItems;
     }
 
-    public static void saveOrDeleteFavorite(ImageItem image) {
-        if (image.isFavorite()) {
-            image.setFavorite(false);
-            dataBase.deleteFavorite(image);
+    public static void saveOrDeleteFavorite(ImageItem imageItem) {
+        if (imageItem.isFavorite()) {
+            imageItem.setFavorite(false);
+            dataBase.deleteFavorite(imageItem);
         } else {
-            image.setFavorite(true);
-            dataBase.saveFavorite(image);
+            imageItem.setFavorite(true);
+            dataBase.saveFavorite(imageItem);
+        }
+    }
+
+    public static void saveOrDeleteFavoriteFromSearch(ImageItem imageItem, Bitmap bitmap) {
+        if (imageItem.isFavorite()) {
+            imageItem.setFavorite(false);
+            dataBase.deleteFavoriteFromSearch(imageItem);
+        } else {
+            imageItem.setFavorite(true);
+            dataBase.saveFavoriteFromSearch(imageItem, bitmap);
         }
     }
 

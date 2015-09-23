@@ -1,13 +1,12 @@
 package com.todor.imageview.fragment;
 
-
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,8 @@ public class FavoriteSlideFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.favorite_layout, null);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(imageItem.getName());
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(imageItem.getName());
 
         final ImageView imageView = (ImageView) v.findViewById(R.id.image_thumb);
         TextView name = (TextView) v.findViewById(R.id.setName);
@@ -66,26 +66,51 @@ public class FavoriteSlideFragment extends Fragment {
             }
         });
 
+        if (imageItem.getBitmap() != null) {
+            imageView.setImageBitmap(imageItem.getBitmap());
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            //Returns null, sizes are in the options variable
+            BitmapFactory.decodeFile(imageItem.getPath(), options);
+
+            name.setText(imageItem.getName());
+            size.setText(String.valueOf(imageItem.getBitmap().getByteCount() / 64));
+            width.setText(String.valueOf(imageItem.getBitmap().getWidth()));
+            height.setText(String.valueOf(imageItem.getBitmap().getWidth()));
+            date.setText(String.valueOf(imageItem.getDate()));
+            path.setText(imageItem.getPath());
+            adapterListener = (AdapterListener) getParentFragment();
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent mIntent = new Intent(getActivity(), ImageActivity.class);
+                    mIntent.putExtra("path", imageItem.getPath());
+                    startActivity(mIntent);
+                }
+            });
+        } else {
             Picasso.with(getActivity())
                     .load("file://" + Uri.parse(imageItem.getPath()))
                     .into(imageView);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            //Returns null, sizes are in the options variable
+            BitmapFactory.decodeFile(imageItem.getPath(), options);
+            int widthInt = options.outWidth;
+            int heightInt = options.outHeight;
+            File file = new File(imageItem.getPath());
+            long sizeLong = file.length() / 1024;
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        //Returns null, sizes are in the options variable
-        BitmapFactory.decodeFile(imageItem.getPath(), options);
-        int widthInt = options.outWidth;
-        int heightInt = options.outHeight;
-        File file = new File(imageItem.getPath());
-        long sizeLong = file.length() / 1024;
+            name.setText(imageItem.getName());
+            size.setText(String.valueOf(sizeLong));
+            width.setText(String.valueOf(widthInt));
+            height.setText(String.valueOf(heightInt));
+            date.setText(String.valueOf(imageItem.getDate()));
+            path.setText(imageItem.getPath());
+            adapterListener = (AdapterListener) getParentFragment();
+        }
 
-        name.setText(imageItem.getName());
-        size.setText(String.valueOf(sizeLong));
-        width.setText(String.valueOf(widthInt));
-        height.setText(String.valueOf(heightInt));
-        date.setText(String.valueOf(imageItem.getDate()));
-        path.setText(imageItem.getPath());
-        adapterListener = (AdapterListener) getParentFragment();
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

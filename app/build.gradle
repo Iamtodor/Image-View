@@ -29,4 +29,5 @@ dependencies {
     compile 'com.android.support:design:22.2.0'
     compile 'com.android.support:recyclerview-v7:21.0.0'
     compile 'com.googlecode.android-query:android-query:0.25.9'
+    compile 'com.commit451:PhotoView:1.2.4'
 }

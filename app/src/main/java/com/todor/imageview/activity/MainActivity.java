@@ -2,17 +2,13 @@ package com.todor.imageview.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.todor.imageview.R;
 import com.todor.imageview.fragment.FolderFragment;
 import com.todor.imageview.utils.Utils;
-
-import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,11 +22,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             getSupportFragmentManager()
-            .beginTransaction()
-            .replace(R.id.frame_container, new FolderFragment(), "folder")
-            .commit();
+                    .beginTransaction()
+                    .replace(R.id.frame_container, new FolderFragment(), "folder")
+                    .commit();
         } else {
             fragment = getSupportFragmentManager().getFragment(
                     savedInstanceState, "search");
@@ -42,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(myDrawer.isDrawerOpen())
+        if (myDrawer.isDrawerOpen())
             myDrawer.closeDrawer();
         else
             super.onBackPressed();
