@@ -37,7 +37,6 @@ public class RecyclerViewAdapterForSearch extends RecyclerView.Adapter<RecyclerV
     }
 
     private void writeObject(ObjectOutputStream oos) throws IOException {
-        oos.defaultWriteObject();
         if (bitmap != null) {
             ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
             boolean success = bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
@@ -48,7 +47,6 @@ public class RecyclerViewAdapterForSearch extends RecyclerView.Adapter<RecyclerV
     }
 
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        ois.defaultReadObject();
         byte[] image = (byte[]) ois.readObject();
         if (image != null && image.length > 0) {
             bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
