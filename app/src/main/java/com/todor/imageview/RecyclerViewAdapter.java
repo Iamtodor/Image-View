@@ -2,6 +2,8 @@ package com.todor.imageview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,34 +14,32 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.todor.imageview.activity.ImageActivity;
 import com.todor.imageview.model.GalleryImages;
-import com.todor.imageview.model.ImageItem;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class RecyclerViewAdapterForFolder extends RecyclerView.Adapter<RecyclerViewAdapterForFolder.ViewHolder> implements Serializable {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Serializable {
 
-    private List<ImageItem> imageItems;
+    private List<String> imageItems;
     private Context context;
 
-    public RecyclerViewAdapterForFolder(List<ImageItem> imageItems, Context context) {
+    public RecyclerViewAdapter(List<String> imageItems, Context context) {
         this.imageItems = imageItems;
         this.context = context;
     }
 
     @Override
-    public RecyclerViewAdapterForFolder.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         return new ViewHolder(LayoutInflater
                 .from(viewGroup.getContext())
                 .inflate(R.layout.gallery_item, viewGroup, false));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        final ImageItem imageItem = imageItems.get(i);
-        viewHolder.favorite.setImageResource(imageItem.isFavorite() ? R.drawable.starselected : R.drawable.starnoselected);
+    public void onBindViewHolder(RecyclerViewAdapter.ViewHolder viewHolder, int i) {
+//        Bitmap myBitmap = BitmapFactory.decodeFile(imageItems.get(i));
         Picasso.with(context)
-                .load("file://" + Uri.parse(imageItem.getPath()))
+                .load("file://" + Uri.parse(imageItems.get(i)))
                 .fit()
                 .centerCrop()
                 .into(viewHolder.imageThumb);
@@ -47,7 +47,7 @@ public class RecyclerViewAdapterForFolder extends RecyclerView.Adapter<RecyclerV
         viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GalleryImages.saveOrDeleteFavorite(imageItem);
+//                GalleryImages.saveOrDeleteFavorite(imageItem);
                 notifyDataSetChanged();
             }
         });
@@ -55,7 +55,7 @@ public class RecyclerViewAdapterForFolder extends RecyclerView.Adapter<RecyclerV
             @Override
             public void onClick(View v) {
                 Intent mIntent = new Intent(context, ImageActivity.class);
-                mIntent.putExtra("path", imageItem.getPath());
+//                mIntent.putExtra("path", imageItem.getPath());
                 context.startActivity(mIntent);
             }
         });

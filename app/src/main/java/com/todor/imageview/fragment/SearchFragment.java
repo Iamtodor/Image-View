@@ -76,6 +76,7 @@ public class SearchFragment extends Fragment {
 
         View viewForRecycler = inflater.inflate(R.layout.recycle_view, container, false);
         recyclerView = (MyGridLayoutManager) viewForRecycler.findViewById(R.id.recyclerView);
+
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         searchToolbar = inflater.inflate(R.layout.toolbar_search, toolbar, false);
         ImageButton searchButton = (ImageButton) searchToolbar.findViewById(R.id.search_button);

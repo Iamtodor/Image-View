@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 
 import com.todor.imageview.utils.DataBase;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,19 @@ public class GalleryImages {
             } while (cursor.moveToNext());
         }
         return imageItems;
+    }
+
+    public static ArrayList<String> getImageFromFolder(String path) {
+        ArrayList<String> f = new ArrayList<>();
+        File[] listFile;
+        File file = new File(android.os.Environment.getExternalStorageDirectory(), path);
+        if (file.isDirectory()) {
+            listFile = file.listFiles();
+            for (int i = 0; i < listFile.length; i++) {
+                f.add(listFile[i].getAbsolutePath());
+            }
+        }
+        return f;
     }
 
     public static void saveOrDeleteFavorite(ImageItem imageItem) {
