@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/backButton"
-        android:src="@android:drawable/btn_plus"/>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/currentFolder"
-        android:textColor="#FF0000"/>
+        <ImageButton
+            android:padding="5dp"
+            android:id="@+id/backButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:background="@null" />
+
+        <TextView
+            android:id="@+id/currentFolder"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:gravity="center_vertical"
+            android:textColor="#ffffff"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
     <ListView
-        android:layout_width="wrap_content"
+        android:id="@+id/subFolders"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/subFolders"/>
+        android:clickable="true" />
+
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Ok"-->
+        <!--android:id="@+id/okButton" />-->
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.todor.imageview.fragment;
 
 //import android.app.Fragment;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -9,21 +10,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todor.imageview.CustomDialog;
 import com.todor.imageview.MyGridLayoutManager;
 import com.todor.imageview.R;
-import com.todor.imageview.RecyclerViewAdapter;
+import com.todor.imageview.RecyclerViewAdapterForFolder;
 import com.todor.imageview.model.GalleryImages;
 
 public class FolderFragment extends Fragment {
 
-    private RecyclerViewAdapter mAdapter;
+    private RecyclerViewAdapterForFolder mAdapter;
     private MyGridLayoutManager recyclerView;
     private Toolbar toolbar;
     private View toolbarView;
+    private TextView pathView;
+    private ImageView search;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,8 +34,8 @@ public class FolderFragment extends Fragment {
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("In folder");
         toolbarView = inflater.inflate(R.layout.toolbar_folder, container, false);
-        TextView pathView = (TextView) toolbarView.findViewById(R.id.path);
-        ImageButton search = (ImageButton) toolbarView.findViewById(R.id.folder_button);
+        pathView = (TextView) toolbarView.findViewById(R.id.path);
+        search = (ImageView) toolbarView.findViewById(R.id.folder_button);
         toolbar.addView(toolbarView);
 
         search.setOnClickListener(new View.OnClickListener() {
@@ -47,9 +50,7 @@ public class FolderFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.recycle_view, container, false);
         recyclerView = (MyGridLayoutManager) view.findViewById(R.id.recyclerView);
-//        mAdapter = new RecyclerViewForFolder(GalleryImages.getGalleryImages(getActivity()),
-//                getActivity());
-        mAdapter = new RecyclerViewAdapter(GalleryImages.getImageFromFolder("KatePhotos"),
+        mAdapter = new RecyclerViewAdapterForFolder(GalleryImages.getImageFromFolder("KatePhotos", getActivity()),
                 getActivity());
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
 
@@ -67,4 +68,5 @@ public class FolderFragment extends Fragment {
             toolbar.removeView(toolbarView);
         }
     }
+
 }

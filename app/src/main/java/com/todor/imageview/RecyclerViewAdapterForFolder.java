@@ -35,14 +35,15 @@ public class RecyclerViewAdapterForFolder extends RecyclerView.Adapter<RecyclerV
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(RecyclerViewAdapterForFolder.ViewHolder viewHolder, final int i) {
         final ImageItem imageItem = imageItems.get(i);
-        viewHolder.favorite.setImageResource(imageItem.isFavorite() ? R.drawable.starselected : R.drawable.starnoselected);
         Picasso.with(context)
                 .load("file://" + Uri.parse(imageItem.getPath()))
                 .fit()
                 .centerCrop()
                 .into(viewHolder.imageThumb);
+
+        viewHolder.favorite.setImageResource(imageItem.isFavorite() ? R.drawable.starselected : R.drawable.starnoselected);
 
         viewHolder.favorite.setOnClickListener(new View.OnClickListener() {
             @Override

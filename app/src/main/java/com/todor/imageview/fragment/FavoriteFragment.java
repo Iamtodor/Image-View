@@ -49,7 +49,7 @@ public class FavoriteFragment extends Fragment implements AdapterListener {
 
         @Override
         public Fragment getItem(int position) {
-            return FavoriteSlideFragment.getInstance(imageItems.get(imageItems.size() - 1 -position));
+            return FavoriteSlideFragment.getInstance(imageItems.get(imageItems.size() - 1 - position));
         }
 
         @Override
