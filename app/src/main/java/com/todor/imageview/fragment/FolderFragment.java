@@ -1,9 +1,9 @@
 package com.todor.imageview.fragment;
 
-//import android.app.Fragment;
+import android.app.Fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+//import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,12 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todor.imageview.CustomDialog;
+import com.todor.imageview.DialogListener;
 import com.todor.imageview.MyGridLayoutManager;
 import com.todor.imageview.R;
 import com.todor.imageview.RecyclerViewAdapterForFolder;
 import com.todor.imageview.model.GalleryImages;
 
-public class FolderFragment extends Fragment {
+public class FolderFragment extends Fragment implements DialogListener{
 
     private RecyclerViewAdapterForFolder mAdapter;
     private MyGridLayoutManager recyclerView;
@@ -42,11 +43,12 @@ public class FolderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 CustomDialog dialog = new CustomDialog();
+                dialog.setTargetFragment(FolderFragment.this, 0);
                 dialog.show(getActivity().getFragmentManager(), "show");
             }
         });
 
-        pathView.setText("KatePhotos");
+        pathView.setText("");
 
         View view = inflater.inflate(R.layout.recycle_view, container, false);
         recyclerView = (MyGridLayoutManager) view.findViewById(R.id.recyclerView);
@@ -69,4 +71,12 @@ public class FolderFragment extends Fragment {
         }
     }
 
+    @Override
+    public void getString(String folder, String path) {
+        pathView.setText(path);
+        mAdapter = new RecyclerViewAdapterForFolder(GalleryImages.getImageFromFolder(folder, getActivity()),
+                getActivity());
+        mAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(mAdapter);
+    }
 }

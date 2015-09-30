@@ -56,7 +56,7 @@ public class Utils {
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
                         if(iDrawerItem != null) {
                             if(iDrawerItem.getIdentifier() == 1) {
-                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new FolderFragment()).commit();
+                                activity.getFragmentManager().beginTransaction().replace(R.id.frame_container, new FolderFragment()).commit();
                             } else if(iDrawerItem.getIdentifier() == 2) {
                                 activity.getSupportFragmentManager().beginTransaction().addToBackStack("search").replace(R.id.frame_container, new SearchFragment()).commit();
                             } else if(iDrawerItem.getIdentifier() == 3) {

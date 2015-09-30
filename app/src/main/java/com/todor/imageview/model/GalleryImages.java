@@ -2,6 +2,8 @@ package com.todor.imageview.model;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 import com.todor.imageview.utils.DataBase;
 
@@ -9,6 +11,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GalleryImages {
     static DataBase dataBase;
@@ -22,22 +25,36 @@ public class GalleryImages {
         if (file.isDirectory()) {
             listFile = file.listFiles();
             for (int i = 0; i < listFile.length; i++) {
-                ImageItem imageItem = new ImageItem();
-                imageItem.setPath(listFile[i].getAbsolutePath());
-                String fullPath = listFile[i].getAbsolutePath();
-                String[] name = fullPath.split("/");
-                long date = System.currentTimeMillis();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                imageItem.setDate(String.valueOf(simpleDateFormat.format(date)));
-                imageItem.setName(name[name.length - 1]);
-                for (ImageItem favoriteItem : favoriteImageItems) {
-                    if (favoriteItem.getPath().equals(imageItem.getPath()))
-                        imageItem.setFavorite(true);
+                if(getMimeType(listFile[i].getAbsolutePath())) {
+                    ImageItem imageItem = new ImageItem();
+                    imageItem.setPath(listFile[i].getAbsolutePath());
+                    String fullPath = listFile[i].getAbsolutePath();
+                    String[] name = fullPath.split("/");
+                    long date = System.currentTimeMillis();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    imageItem.setDate(String.valueOf(simpleDateFormat.format(date)));
+                    imageItem.setName(name[name.length - 1]);
+                    for (ImageItem favoriteItem : favoriteImageItems) {
+                        if (favoriteItem.getPath().equals(imageItem.getPath()))
+                            imageItem.setFavorite(true);
+                    }
+                    imageItems.add(imageItem);
                 }
-                imageItems.add(imageItem);
             }
         }
         return imageItems;
+    }
+
+    public static boolean getMimeType(String url) {
+        String type = null;
+        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+            if("image/jpeg".equals(type)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void saveOrDeleteFavorite(ImageItem imageItem) {

@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager()
+            getFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame_container, new FolderFragment(), "folder")
                     .commit();
