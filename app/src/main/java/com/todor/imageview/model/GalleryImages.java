@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import com.todor.imageview.utils.DataBase;
 
@@ -41,6 +42,9 @@ public class GalleryImages {
                     imageItems.add(imageItem);
                 }
             }
+        }
+        if(imageItems.size() == 0) {
+            Toast.makeText(activity, "This folder has no image", Toast.LENGTH_SHORT).show();
         }
         return imageItems;
     }

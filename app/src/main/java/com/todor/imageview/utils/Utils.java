@@ -12,11 +12,10 @@ import android.widget.AdapterView;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.todor.imageview.R;
 import com.todor.imageview.fragment.FavoriteFragment;
 import com.todor.imageview.fragment.FolderFragment;
-import com.todor.imageview.R;
 import com.todor.imageview.fragment.SearchFragment;
-//import com.todor.imageview.fragment.SearchFragment;
 
 public class Utils {
     public static void hideSoftKeyBoard(Activity activity) {
@@ -54,12 +53,12 @@ public class Utils {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
-                        if(iDrawerItem != null) {
-                            if(iDrawerItem.getIdentifier() == 1) {
-                                activity.getFragmentManager().beginTransaction().replace(R.id.frame_container, new FolderFragment()).commit();
-                            } else if(iDrawerItem.getIdentifier() == 2) {
-                                activity.getSupportFragmentManager().beginTransaction().addToBackStack("search").replace(R.id.frame_container, new SearchFragment()).commit();
-                            } else if(iDrawerItem.getIdentifier() == 3) {
+                        if (iDrawerItem != null) {
+                            if (iDrawerItem.getIdentifier() == 1) {
+                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new FolderFragment(), "Folder fragment").commit();
+                            } else if (iDrawerItem.getIdentifier() == 2) {
+                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new SearchFragment()).commit();
+                            } else if (iDrawerItem.getIdentifier() == 3) {
                                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new FavoriteFragment()).commit();
                             }
 

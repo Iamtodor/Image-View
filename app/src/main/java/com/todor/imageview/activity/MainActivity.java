@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            getFragmentManager()
+            getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame_container, new FolderFragment(), "folder")
                     .commit();
@@ -43,16 +43,4 @@ public class MainActivity extends AppCompatActivity {
         else
             super.onBackPressed();
     }
-//
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//
-//        FragmentManager.BackStackEntry backEntry = (FragmentManager.BackStackEntry) getFragmentManager().getBackStackEntryAt(MainActivity.this.getFragmentManager().getBackStackEntryCount());
-//        String str = backEntry.getName();
-//        fragment = getSupportFragmentManager().findFragmentByTag(str);
-//
-//        getSupportFragmentManager().putFragment(outState, "search", fragment);
-//
-//    }
 }
