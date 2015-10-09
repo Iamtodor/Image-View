@@ -22,7 +22,7 @@ public class GalleryImages {
         ArrayList<ImageItem> favoriteImageItems = dataBase.getFavorites();
         ArrayList<ImageItem> imageItems = new ArrayList<>();
         File[] listFile;
-        File file = new File(android.os.Environment.getExternalStorageDirectory(), path);
+        File file = new File(path);
         if (file.isDirectory()) {
             listFile = file.listFiles();
             for (int i = 0; i < listFile.length; i++) {
@@ -50,11 +50,11 @@ public class GalleryImages {
     }
 
     public static boolean getMimeType(String url) {
-        String type = null;
+        String type;
         String extension = MimeTypeMap.getFileExtensionFromUrl(url);
         if (extension != null) {
             type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-            if("image/jpeg".equals(type)) {
+            if("image/jpeg".equals(type) | "image/png".equals(type) | "image/jpg".equals(type)) {
                 return true;
             }
         }

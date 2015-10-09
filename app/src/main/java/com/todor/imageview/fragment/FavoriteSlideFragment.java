@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.todor.imageview.R;
@@ -28,6 +29,7 @@ public class FavoriteSlideFragment extends Fragment {
     private AdapterListener adapterListener;
 
     private ImageItem imageItem;
+    private Toolbar toolbar;
 
     public static FavoriteSlideFragment getInstance(ImageItem item) {
         Bundle bundle = new Bundle();
@@ -47,7 +49,7 @@ public class FavoriteSlideFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.favorite_layout, null);
 
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(imageItem.getName());
 
         final ImageView imageView = (ImageView) v.findViewById(R.id.image_thumb);

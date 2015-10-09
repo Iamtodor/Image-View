@@ -18,6 +18,8 @@ import com.todor.imageview.R;
 import com.todor.imageview.RecyclerViewAdapterForFolder;
 import com.todor.imageview.model.GalleryImages;
 
+import java.io.File;
+
 public class FolderFragment extends Fragment implements DialogListener {
 
     private RecyclerViewAdapterForFolder mAdapter;
@@ -31,12 +33,10 @@ public class FolderFragment extends Fragment implements DialogListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("In folder");
         toolbarView = inflater.inflate(R.layout.toolbar_folder, container, false);
         pathView = (TextView) toolbarView.findViewById(R.id.path);
         search = (ImageView) toolbarView.findViewById(R.id.folder_button);
         toolbar.addView(toolbarView);
-
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,11 +70,12 @@ public class FolderFragment extends Fragment implements DialogListener {
     }
 
     @Override
-    public void getString(String folder, String path) {
-        pathView.setText(path);
-        mAdapter = new RecyclerViewAdapterForFolder(GalleryImages.getImageFromFolder(folder, getActivity()),
+    public void getFile(File file) {
+        pathView.setText(file.getPath());
+        mAdapter = new RecyclerViewAdapterForFolder(GalleryImages.getImageFromFolder(file.getPath(), getActivity()),
                 getActivity());
         mAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(mAdapter);
     }
+
 }

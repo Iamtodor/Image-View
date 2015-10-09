@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.todor.imageview.R;
 import com.todor.imageview.activity.AdapterListener;
@@ -27,6 +28,9 @@ public class FavoriteFragment extends Fragment implements AdapterListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.favorite_view_pager, container, false);
         imageItems = GalleryImages.getFavorites();
+        if(imageItems.size() == 0) {
+            Toast.makeText(getContext(), "You have no favorite image", Toast.LENGTH_SHORT).show();
+        }
         mPager = (ViewPager) v.findViewById(R.id.pager);
         mPagerAdapter = new PagerAdapter(getChildFragmentManager());
         mPager.setAdapter(mPagerAdapter);

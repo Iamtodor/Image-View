@@ -1,5 +1,7 @@
 package com.todor.imageview;
 
+import java.io.File;
+
 public interface DialogListener {
-    void getString(String folder, String path);
+    void getFile(File file);
 }
