@@ -17,6 +17,7 @@ import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -24,6 +25,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.todor.imageview.MyGridLayoutManager;
 import com.todor.imageview.R;
 import com.todor.imageview.RecyclerViewAdapterForSearch;
+import com.todor.imageview.activity.MainActivity;
 import com.todor.imageview.model.ImageItem;
 
 import org.json.JSONArray;
@@ -38,7 +40,7 @@ public class SearchFragment extends Fragment {
     public final int MAX_RESULT_COUNT = 50;
     private final int PAGE_SIZE = 8;
     private final String SEARCH_ENDPOINT = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=" + PAGE_SIZE;
-    private View searchToolbar;
+    private Toolbar searchToolbar;
     private Toolbar toolbar;
     private RecyclerViewAdapterForSearch recyclerViewAdapter;
     private MyGridLayoutManager recyclerView;
@@ -76,12 +78,11 @@ public class SearchFragment extends Fragment {
 
         View viewForRecycler = inflater.inflate(R.layout.recycle_view, container, false);
         recyclerView = (MyGridLayoutManager) viewForRecycler.findViewById(R.id.recyclerView);
-
-        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        searchToolbar = inflater.inflate(R.layout.toolbar_search, toolbar, false);
+        searchToolbar = (Toolbar) viewForRecycler.findViewById(R.id.toolbar);
         ImageButton searchButton = (ImageButton) searchToolbar.findViewById(R.id.search_button);
         searchInput = (EditText) searchToolbar.findViewById(R.id.search_input);
-        toolbar.addView(searchToolbar);
+        ((MainActivity)getActivity()).setSupportActionBar(searchToolbar);
+//        toolbar.addView(searchToolbar);
 
         if (!isNetworkAvailable()) {
             Toast.makeText(getActivity(), "You have no internet", Toast.LENGTH_SHORT).show();

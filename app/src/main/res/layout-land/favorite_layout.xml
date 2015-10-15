@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <include layout="@layout/toolbar_favorite" />
+
     <ImageView
         android:id="@+id/image_thumb"
         android:layout_width="350dp"

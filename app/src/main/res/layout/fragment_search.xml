@@ -10,6 +10,8 @@
     android:paddingTop="0dp"
     tools:context=".MainActivity">
 
+    <include layout="@layout/toolbar_search" />
+
     <GridView
         android:id="@+id/grid_view"
         android:layout_width="fill_parent"

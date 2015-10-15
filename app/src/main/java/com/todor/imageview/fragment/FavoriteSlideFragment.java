@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import com.todor.imageview.R;
 import com.todor.imageview.activity.AdapterListener;
 import com.todor.imageview.activity.ImageActivity;
+import com.todor.imageview.activity.MainActivity;
 import com.todor.imageview.model.ImageItem;
 
 import java.io.File;
@@ -47,10 +48,11 @@ public class FavoriteSlideFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.favorite_layout, null);
+        View v = inflater.inflate(R.layout.favorite_layout, null, false);
 
-        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar = (Toolbar) v.findViewById(R.id.toolbar);
         toolbar.setTitle(imageItem.getName());
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
 
         final ImageView imageView = (ImageView) v.findViewById(R.id.image_thumb);
         TextView name = (TextView) v.findViewById(R.id.setName);

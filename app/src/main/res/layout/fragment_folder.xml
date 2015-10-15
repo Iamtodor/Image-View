@@ -5,6 +5,8 @@
     android:background="#e6e6e6"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbar_folder" />
+
     <GridView
         android:id="@+id/galleryView"
         android:layout_width="match_parent"

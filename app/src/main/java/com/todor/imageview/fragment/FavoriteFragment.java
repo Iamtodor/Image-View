@@ -28,13 +28,14 @@ public class FavoriteFragment extends Fragment implements AdapterListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.favorite_view_pager, container, false);
         imageItems = GalleryImages.getFavorites();
-        if(imageItems.size() == 0) {
+        if(imageItems.size() != 0) {
+            mPager = (ViewPager) v.findViewById(R.id.pager);
+            mPagerAdapter = new PagerAdapter(getChildFragmentManager());
+            mPager.setAdapter(mPagerAdapter);
+            mPager.setCurrentItem(0);
+        } else {
             Toast.makeText(getContext(), "You have no favorite image", Toast.LENGTH_SHORT).show();
         }
-        mPager = (ViewPager) v.findViewById(R.id.pager);
-        mPagerAdapter = new PagerAdapter(getChildFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
-        mPager.setCurrentItem(0);
         return v;
     }
 

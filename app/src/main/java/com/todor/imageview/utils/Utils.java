@@ -27,13 +27,13 @@ public class Utils {
         }
     }
 
-    public static Drawer.Result createCommonDrawer(final AppCompatActivity activity, Toolbar toolbar) {
+    public static Drawer.Result createCommonDrawer(final AppCompatActivity activity) {
         Drawer.Result drawerResult;
         drawerResult = new Drawer()
                 .withActivity(activity)
                 .withDrawerWidthDp(250)
                 .withHeader(R.layout.drawer_header)
-                .withToolbar(toolbar)
+//                .withToolbar(toolbar)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Folder").withIcon(ContextCompat.getDrawable(activity.getApplicationContext(), R.drawable.folder)).withIdentifier(1),
                         new PrimaryDrawerItem().withName("Search").withIcon(ContextCompat.getDrawable(activity.getApplicationContext(), R.drawable.search)).withIdentifier(2),
