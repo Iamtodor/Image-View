@@ -7,17 +7,12 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
-import android.support.v7.widget.Toolbar;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -25,7 +20,6 @@ import com.androidquery.callback.AjaxStatus;
 import com.todor.imageview.MyGridLayoutManager;
 import com.todor.imageview.R;
 import com.todor.imageview.RecyclerViewAdapterForSearch;
-import com.todor.imageview.activity.MainActivity;
 import com.todor.imageview.model.ImageItem;
 
 import org.json.JSONArray;
@@ -78,30 +72,29 @@ public class SearchFragment extends Fragment {
 
         View viewForRecycler = inflater.inflate(R.layout.recycle_view, container, false);
         recyclerView = (MyGridLayoutManager) viewForRecycler.findViewById(R.id.recyclerView);
-        searchToolbar = (Toolbar) viewForRecycler.findViewById(R.id.toolbar);
-        ImageButton searchButton = (ImageButton) searchToolbar.findViewById(R.id.search_button);
-        searchInput = (EditText) searchToolbar.findViewById(R.id.search_input);
-        ((MainActivity)getActivity()).setSupportActionBar(searchToolbar);
-//        toolbar.addView(searchToolbar);
+//        searchToolbar = (Toolbar) viewForRecycler.findViewById(R.id.toolbar);
+//        ImageButton searchButton = (ImageButton) searchToolbar.findViewById(R.id.search_button);
+//        searchInput = (EditText) searchToolbar.findViewById(R.id.search_input);
+//        ((MainActivity)getActivity()).setSupportActionBar(searchToolbar);
 
-        if (!isNetworkAvailable()) {
-            Toast.makeText(getActivity(), "You have no internet", Toast.LENGTH_SHORT).show();
-            searchToolbar.setVisibility(View.INVISIBLE);
-        }
+//        if (!isNetworkAvailable()) {
+//            Toast.makeText(getActivity(), "You have no internet", Toast.LENGTH_SHORT).show();
+//            searchToolbar.setVisibility(View.INVISIBLE);
+//        }
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recyclerViewAdapter = new RecyclerViewAdapterForSearch(getActivity());
-                recyclerView.setAdapter(recyclerViewAdapter);
-                recyclerView.invalidate();
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                searchRequest = searchInput.getText().toString();
-                new SearchTask(SearchFragment.this).execute(searchInput.getText().toString());
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(searchInput.getWindowToken(), 0);
-            }
-        });
+//        searchButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                recyclerViewAdapter = new RecyclerViewAdapterForSearch(getActivity());
+//                recyclerView.setAdapter(recyclerViewAdapter);
+//                recyclerView.invalidate();
+//                recyclerView.setItemAnimator(new DefaultItemAnimator());
+//                searchRequest = searchInput.getText().toString();
+//                new SearchTask(SearchFragment.this).execute(searchInput.getText().toString());
+//                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                imm.hideSoftInputFromWindow(searchInput.getWindowToken(), 0);
+//            }
+//        });
         return viewForRecycler;
     }
 
